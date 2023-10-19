@@ -7,6 +7,18 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("theHumourAppCors", policy =>
+    {
+        policy.WithOrigins(allowedOrigin)
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+    });
+});
 // Add services to the container.
 builder.Services.AddScoped<ExceptionMiddleware>();
 builder.Services.AddAutoMapper(typeof(HumourDto));
@@ -28,6 +40,7 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+app.UseCors("theHumourAppCors");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

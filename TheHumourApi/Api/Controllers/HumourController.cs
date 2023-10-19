@@ -10,10 +10,14 @@ namespace Api.Controllers;
 /// Provides endpoints to fetch humour.
 /// </summary>
 [ApiController]
-[Route("humour")]
+[Route("api/humour")]
 public class HumourController : ControllerBase
 {
     private readonly IMediator mediator;
+    /// <summary>
+    /// Constructor to initialize field members.
+    /// </summary>
+    /// <param name="mediator">Mediator</param>
     public HumourController(IMediator mediator)
     {
         this.mediator = mediator;
