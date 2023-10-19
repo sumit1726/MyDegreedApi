@@ -12,7 +12,7 @@ public class SearchDadJokesQueryValidator : AbstractValidator<SearchDadJokesQuer
     public SearchDadJokesQueryValidator()
     {
         RuleFor(q => q.PageNumber).NotNull().GreaterThanOrEqualTo(1).WithMessage("Page should be numeric and greater than or equals to 1");
-        RuleFor(q => q.PageSizeLimit).NotNull().GreaterThan(1).WithMessage("Page should be numeric and greater than or equals to 1");
+        RuleFor(q => q.PageSizeLimit).NotNull().GreaterThanOrEqualTo(1).LessThanOrEqualTo(30).WithMessage("Page should be numeric and within range from 1 to 30.");
         RuleFor(q => q.SearchTerm).NotNull().NotEmpty().WithMessage("Term cannot be null or empty.");
     }
 }
